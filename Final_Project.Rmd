@@ -1,0 +1,54 @@
+---
+title: "Final_Project"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Steps we took to complete project
+
+###ETL ("Clean Up") the Data -
+ 
+```{r ETL,eval = FALSE}
+source ("../01 Data/R_ETLWages1.csv")
+source ("../01 Data/R_ETLWages2.csv")
+```
+###Data Description
+This data set contains the following fields:
+
+ - City- city where company is headquartered
+ 
+ - State- State where company is headquartered
+
+
+###Joining the Data
+
+We joined the data using a inner join to combine states with their respective regions. 
+
+
+```{}
+SELECT Wages1.unique_num,school, wage, exper, sex, marital status, state
+        FROM Wages1, `Wages2.csv`
+        WHERE Wages1.unique_num = `Wages2.csv`.unique_num
+```
+###Non-Aggregated Measures Analysis
+
+###Aggregated Measures Analysis
+
+###Scatter Plots
+
+###Crosstabs
+
+###Barcharts
+
+
+## Shiny
+  After we had workable data, we developed a Shiny App. Each tab of the Shiny App displays the equivalent ggplot code that creates the same visualization as Tableau. 
+  
+If you wish to run the app, it is under 02 Shiny. It is also hosted with this URL. https://chriswongwr.shinyapps.io/project6/
+
+  
