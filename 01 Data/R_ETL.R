@@ -3,7 +3,7 @@ require(plyr)
 
 # Set the Working Directory to the 00 Doc folder
 # Download the cannata/diamonds file into a folder ../../CSVs and rename the file PreETL_Diamonds.csv
-file_path = "../01 Data/preUS_Companies.csv"
+file_path = "../01 Data/PreETL_US_Companies.csv"
 df <- readr::read_csv(file_path)
 #names(wage)
 
