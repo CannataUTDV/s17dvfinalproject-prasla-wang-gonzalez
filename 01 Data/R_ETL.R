@@ -8,10 +8,10 @@ df <- readr::read_csv(file_path)
 #names(wage)
 
 #df <- plyr::rename(wage, c("table"="tbl")) # table is a reserved word in Oracle so rename it to tbl.
-#names(df)
+names(df) <- c("id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","state")
 #str(df) # Uncomment this line and  run just the lines to here to get column types to use for getting the list of measures.
 
-measures <- c("at","ci","emp","It","txpd","xopr","mkvalt","prcc_f","au")
+measures <- c("total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","market_value","price")
 #measures <- NA # Do this if there are no measures.
 
 dimensions <- setdiff(names(df), measures)
@@ -53,10 +53,10 @@ if( length(measures) > 1) {
   for(m in measures) {
     print(m)
     df[m] <- data.frame(lapply(df[m], gsub, pattern="[^--.0-9]",replacement= ""))
-    df[m] <- data.frame(lapply(df[m], na2zero))
     df[m] <- data.frame(lapply(df[m], as.numeric)) # This is needed to turn measures back to numeric because gsub turns them into strings.
   }
 }
 str(df)
-
+df = df[complete.cases(df),]
+View(df)
 write.csv(df, gsub("PreETL_", "", file_path), row.names=FALSE, na = "")
