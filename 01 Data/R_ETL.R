@@ -65,8 +65,7 @@ if( length(dimensions1) > 0) {
 na2zero <- function (x) {
   x[is.na(x)] <- 0
   return(x)
-}
-# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions, and change NA to 0.
+d# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions, and change NA to 0.
 if( length(measures) > 1) {
   for(m in measures) {
     print(m)
