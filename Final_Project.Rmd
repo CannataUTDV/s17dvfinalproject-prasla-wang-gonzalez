@@ -19,10 +19,7 @@ source ("../01 Data/R_ETLWages2.csv")
 ```
 ###Data Description
 This data set contains the following fields:
-c("id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","state")
-#str(df) # Uncomment this line and  run just the lines to here to get column types to use for getting the list of measures.
 
-measures <- c("total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","market_value","price")
  - id- 
  
  - date-
@@ -42,12 +39,23 @@ measures <- c("total_assets","income","employee","total_liabilities","income_tax
  - income
  
  - employe
-
- - City- city where company is headquartered
  
- - State- State where company is headquartered
-
-
+ - total liabilities
+ 
+ - income_tax_paid-
+ 
+ - operating_expenses
+ 
+ - status
+ 
+ - market_value
+ 
+ - price
+ 
+ - city
+ 
+ - state
+ 
 ###Joining the Data
 
 We joined the data using a inner join to combine states with their respective regions. 
