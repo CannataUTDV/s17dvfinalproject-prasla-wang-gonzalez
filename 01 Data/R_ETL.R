@@ -49,6 +49,7 @@ if( length(dimensions) > 0) {
     df[d] <- data.frame(lapply(df[d], gsub, pattern=":",replacement= ";"))
   }
 }
+
 if( length(dimensions1) > 0) {
   for(d in dimensions1) {
     # Change NA to the empty string.
@@ -65,14 +66,17 @@ if( length(dimensions1) > 0) {
 na2zero <- function (x) {
   x[is.na(x)] <- 0
   return(x)
-d# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions, and change NA to 0.
+}
+
+# Get rid of all characters in measures except for numbers, the - sign, and period.dimensions, and change NA to 0.
 if( length(measures) > 1) {
   for(m in measures) {
     print(m)
     df[m] <- data.frame(lapply(df[m], gsub, pattern="[^--.0-9]",replacement= ""))
-    df[m] <- data.frame(lapply(df[m], as.numeric)) # This is needed to turn measures back to numeric because gsub turns them into strings.
+    #df[m] <- data.frame(lapply(df[m], as.numeric)) # This is needed to turn measures back to numeric because gsub turns them into strings.
   }
 }
+
 str(df)
 df = df[complete.cases(df),]
 
