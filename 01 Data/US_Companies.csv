@@ -1,4 +1,4 @@
-"id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","state"
+"id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","abbreviation"
 "1045","20161231","2016","INDL","AAL","AMERICAN AIRLINES GROUP INC","USD","51274","2325","122.3","47489","16","32347","A","23685.5569","46.69","Fort Worth","TX"
 "1075","20161231","2016","INDL","PNW","PINNACLE WEST CAPITAL CORP","USD","16004.253","462.453","6.339","11068.341","9.956","2156.869","A","8687.6261","78.03","Phoenix","AZ"
 "1076","20161231","2016","INDL","AAN","AARONS INC","USD","2615.736","139.269","11.5","1134.138","-54.258","1560.912","A","2285.6535","31.99","Atlanta","GA"

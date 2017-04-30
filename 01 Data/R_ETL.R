@@ -12,7 +12,7 @@ df2 <-readr::read_csv(file_path2)
 #names(wage)
 
 #df <- plyr::rename(wage, c("table"="tbl")) # table is a reserved word in Oracle so rename it to tbl.
-names(df) <- c("id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","state")
+names(df) <- c("id","date","year","industry_format","ticker","name","currency","total_assets","income","employee","total_liabilities","income_tax_paid","operating_expenses","status","market_value","price","city","abbreviation")
 names(df1) <- c("state","abbreviation","largest_industry")
 #str(df) # Uncomment this line and  run just the lines to here to get column types to use for getting the list of measures.
 
