@@ -5,29 +5,36 @@ require(DT)
 require(plotly)
 
 dashboardPage(
-  dashboardHeader(
+  dashboardHeader(title = "U.S. Companies"
   ),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Boxplot", tabName = "boxplot", icon = icon("dashboard")),
-      menuItem("Histogram", tabName = "histogram", icon = icon("dashboard")),
-      menuItem("Scatterplot", tabName = "scatterplot", icon = icon("dashboard")),
-      menuItem("Corsstab",tabName = "crosstab", icon = icon("dashboard"))
+      menuItem("Introduction",tabName = "Introduction", icon= icon("home")),
+      menuItem("Boxplot", tabName = "boxplot", icon = icon("archive")),
+      menuItem("Histogram", tabName = "histogram", icon = icon("signal")),
+      menuItem("Scatterplot", tabName = "scatterplot", icon = icon("line-chart")),
+      menuItem("Corsstab",tabName = "crosstab", icon = icon("bar-chart"))
     )
   ),
   dashboardBody(    
     tabItems(
       # Begin content.
+      tabItem(tabName = "Introduction", 
+              h3("Describtion:"),
+              p("blahh.....")),
       tabItem(tabName = "boxplot",
         tabsetPanel(
             tabPanel("data", 
                      sliderInput("tax1","income tax paid range:",
                                  min = 0, max = 10000, value = c(500,4000)),
                      hr(),
+                     actionButton(inputId = "click1", label = "Get Data"),
                      DT::dataTableOutput("boxplotData1")
                     
           ),
           tabPanel("Boxplot",
+                   uiOutput("state"),
+                   hr(),
                    plotOutput("boxplot1", height = 500))
         )),
       tabItem(tabName = "histogram",
@@ -59,6 +66,6 @@ dashboardPage(
                        )
               )
     )
-  )
+  ), skin = 'yellow'
 )
 
