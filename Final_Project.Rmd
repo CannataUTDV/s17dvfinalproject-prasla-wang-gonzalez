@@ -62,17 +62,26 @@ We joined the data using a inner join to combine states with their respective re
 
 
 ```{}
-SELECT Wages1.unique_num,school, wage, exper, sex, marital status, state
-        FROM Wages1, `Wages2.csv`
-        WHERE Wages1.unique_num = `Wages2.csv`.unique_num
+SELECT id, date, year, industry_format, ticker, name, currency, total_assets, income,
+       employee, total_liabilities, income_tax_paid, operating_expenses, status, market_value, price,
+       city, US_Companies.csv.abbreviation, state, largest_industry
+       FROM 'US_Companies.csv', 'LargestIndustry.csv'
+       WHERE US_Companies.csv.abbreviation = LargestIndustry.csv.abbreviation
 ```
+#Tableau
+
 ###Non-Aggregated Measures Analysis
+-We did a boxplot showing states with how much total income tax companies that were headquatered in each state.
 
 ###Aggregated Measures Analysis
+-For this case, we did a histogram dual axis histogram showing income in bins versus count of total income on y1 axis and income paid individually by each company on y2 axis.
 
 ###Scatter Plots
+-We also created a scatter plot ploting market value vs income then creating an Action to filter for each of the four Regions. We also created a dashboard that has the scatterplot along with a table highlighting the total market value and income for each Region.
 
 ###Crosstabs
+-For this section, we created a crosstab that has state in one column, total income in another column and total assets for each state in another column. Each state is colored by the KPI we created in which we evaluate the state's Return on Assets (ROA). A High ROA state is colored blue, a Low ROA state is orange while a Negative ROA is colored 
+-Red.
 
 ###Barcharts
 
