@@ -1,9 +1,11 @@
 ---
 title: "Final_Project"
+author: "Rui Wang, Ali Parla, Julio Gonzalez"
 output:
   html_document:
     toc: yes
 ---
+![](../00 Doc/NYSE.jpg)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
