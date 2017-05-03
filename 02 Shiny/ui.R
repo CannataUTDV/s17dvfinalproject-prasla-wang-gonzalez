@@ -3,6 +3,7 @@ require(shiny)
 require(shinydashboard)
 require(DT)
 require(plotly)
+require(leaflet)
 
 dashboardPage(
   dashboardHeader(title = "U.S. Companies"
@@ -13,7 +14,9 @@ dashboardPage(
       menuItem("Boxplot", tabName = "boxplot", icon = icon("archive")),
       menuItem("Histogram", tabName = "histogram", icon = icon("signal")),
       menuItem("Scatterplot", tabName = "scatterplot", icon = icon("line-chart")),
-      menuItem("Corsstab",tabName = "crosstab", icon = icon("bar-chart"))
+      menuItem("Crosstab",tabName = "crosstab", icon = icon("th")),
+      menuItem("Barchart",tabName = "barchart",icon=icon("bar-chart")),
+      menuItem("Map vs. Income", tabName = "map", icon=icon("map"))
     )
   ),
   dashboardBody(    
@@ -32,10 +35,14 @@ dashboardPage(
                      DT::dataTableOutput("boxplotData1")
                     
           ),
-          tabPanel("Boxplot",
+          tabPanel("Boxplot by state",
                    uiOutput("state"),
                    hr(),
-                   plotOutput("boxplot1", height = 500))
+                   plotlyOutput("boxplot1", height = 500)),
+          tabPanel("Boxplot by Region",
+                   uiOutput("region"),
+                   hr(),
+                   plotlyOutput("boxplot2", height = 500))
         )),
       tabItem(tabName = "histogram",
         tabsetPanel(
@@ -49,6 +56,7 @@ dashboardPage(
                                      min = 0, max = 10440, value = c(500,4000)),
                          sliderInput("asset1","total assests range:",
                                      min = 0, max = 4575, value = c(500,2000)),
+                         actionButton(inputId = "click3", label = "Get Data"),
                          hr(),
                          DT::dataTableOutput("scatterplotData1")),
                 tabPanel("Scatterplot",
@@ -64,7 +72,24 @@ dashboardPage(
                          hr(),
                        plotOutput("crosstab1"))
                        )
-              )
+              ),
+      tabItem(tabName = "barchart",
+              tabsetPanel(
+                tabPanel("Data",
+                         radioButtons("rb1", "tax",
+                                      c("With income tax" = "Y", 
+                                        "Without income tax"= "N")),
+                         actionButton(inputId = "click5", label = "Get Data"),
+                         DT::dataTableOutput("barchartData1")),
+                tabPanel("Barchart",
+                         plotOutput("barchart1", height = 500)
+                         )
+              )),
+      tabItem(tabName = "map",
+              tabsetPanel(
+                tabPanel("Map",
+                         leafletOutput("map1"), height = 1000)
+              ))
     )
   ), skin = 'yellow'
 )

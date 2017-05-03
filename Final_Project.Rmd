@@ -1,13 +1,15 @@
 ---
-title: "Final_Project"
-output:
+title: "Final Project: Data Visualizations"
+author: "Rui Wang, Ali Prasla, Julio Gonzalez"
+output: 
   html_document:
-    toc: yes
+     toc: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+![](00 Doc/NYSE.jpg)
 
 ## Steps we took to complete project
 
