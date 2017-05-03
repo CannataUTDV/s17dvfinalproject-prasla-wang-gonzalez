@@ -24,7 +24,7 @@ dashboardPage(
       # Begin content.
       tabItem(tabName = "Introduction", 
               h3("Analysis on Company Data"),
-              p("Using publicly traded corprate data, we tried to find meaninful insights on companies.")),
+              p("Using publicly traded corporate data, we found meaningful insights on companies.")),
       tabItem(tabName = "boxplot",
         tabsetPanel(
             tabPanel("data", 
