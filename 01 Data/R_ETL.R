@@ -1,6 +1,6 @@
 require(readr)
 require(plyr)
-
+options(warn=-1)
 # Set the Working Directory to the 00 Doc folder
 # Download the cannata/diamonds file into a folder ../../CSVs and rename the file PreETL_Diamonds.csv
 file_path = "../01 Data/PreETL_US_Companies.csv"
@@ -21,7 +21,7 @@ measures <- c("total_assets","income","employee","total_liabilities","income_tax
 #measures <- NA # Do this if there are no measures.
 
 dimensions <- setdiff(names(df), measures)
-dimensions
+#dimensions
 dimensions1 = c("largest_industry")
 # Get rid of special characters in each column.
 # Google ASCII Table to understand the following:
@@ -77,7 +77,7 @@ if( length(measures) > 1) {
   }
 }
 
-str(df)
+#str(df)
 df = df[complete.cases(df),]
 
 write.csv(df, gsub("PreETL_", "", file_path), row.names=FALSE, na = "")
