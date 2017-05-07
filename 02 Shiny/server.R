@@ -185,7 +185,7 @@ shinyServer(function(input, output) {
   output$scatterplot1 <- renderPlotly({
     
     
-    plot_ly(scatterplotdata(),x = ~total_assets, y = ~income_tax_paid)
+    plot_ly(scatterplotdata(),x = ~total_assets, y = ~income_tax_paid, text = ~name)
     ##display data table of scatterplotdf here.
 
   })
