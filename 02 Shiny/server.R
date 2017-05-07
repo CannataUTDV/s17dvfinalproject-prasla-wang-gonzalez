@@ -22,9 +22,9 @@ df <- query(
   data.world(propsfile = ".data.world"),
   dataset="chriswongwr/s-17-dv-final-project", type="sql",
   query="SELECT *
-        FROM US_Companies
-        INNER JOIN LargestIndustry ON US_Companies.abbreviation = LargestIndustry.abbreviation
-        INNER JOIN Region ON LargestIndustry.state = Region.State"
+        FROM LargestIndustry
+        JOIN US_Companies ON US_Companies.abbreviation = LargestIndustry.abbreviation
+        JOIN Region ON LargestIndustry.state = Region.State"
 )  #%>% View()
 
 
@@ -94,11 +94,12 @@ shinyServer(function(input, output) {
   
 
   output$map1 <- renderLeaflet({
-    cidf <- df %>% group_by(state) %>% summarise(mean = mean(income)) %>% arrange(state)#%>%View()
-    states <- geojson_read("us-states.json", what = "sp") #%>% View()
-    pal <- colorNumeric("YlGnBu", domain = cidf$mean)
-     labels <- sprintf("<br/>%g Average Income", 
-       cidf$mean) %>% lapply(htmltools::HTML)
+    cidf <- df %>% group_by(state) %>% summarise(mean = mean(income)) %>% arrange(state) #%>%View()
+    states <- geojson_read("us-states.json", what = "sp")[1:50,] #%>% arrange(name) %>% View()
+    pal <- colorNumeric("YlOrRd", domain = cidf$mean)
+     labels <- sprintf("
+                       <br/>%g Average Income", 
+        cidf$mean) %>% lapply(htmltools::HTML)
    
     leaflet(states) %>%
        setView(lng = -96, lat = 37.8, zoom = 4) %>% 
@@ -122,6 +123,38 @@ shinyServer(function(input, output) {
            textsize = "15px",
            direction = "auto")) %>%
        addLegend(pal = pal, values = ~cidf$mean, opacity = 0.6, title = "2016 Ave_Income", position = "bottomright")
+    
+  })
+  
+  output$map2 <- renderLeaflet({
+    cidf <- df %>% group_by(state) %>% summarise(mean = mean(income_tax_paid)) %>% arrange(state) #%>%View()
+    states <- geojson_read("us-states.json", what = "sp")[1:50,] #%>% View()
+    pal <- colorNumeric("YlOrRd", domain = cidf$mean)
+    labels <- sprintf("<br/>%g Income tax paid", 
+                       cidf$mean) %>% lapply(htmltools::HTML)
+    
+    leaflet(states) %>%
+      setView(lng = -96, lat = 37.8, zoom = 4) %>% 
+      addTiles() %>%
+      addPolygons(
+        fillColor = ~pal(cidf$mean),
+        weight = 2,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        label = labels,
+        highlight = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = ~cidf$mean, opacity = 0.6, title = "2016 Income_Tax", position = "bottomright")
     
   })
     

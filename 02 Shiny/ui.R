@@ -88,7 +88,8 @@ dashboardPage(
       tabItem(tabName = "map",
               tabsetPanel(
                 tabPanel("Map",
-                         leafletOutput("map1"), height = 1000)
+                         leafletOutput("map1"),
+                         leafletOutput("map2"))
               ))
     )
   ), skin = 'yellow'
