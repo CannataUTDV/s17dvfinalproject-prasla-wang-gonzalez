@@ -82,13 +82,20 @@ dashboardPage(
                          actionButton(inputId = "click5", label = "Get Data"),
                          DT::dataTableOutput("barchartData1")),
                 tabPanel("Barchart",
-                         plotOutput("barchart1", height = 500)
+                         h3("Employees (thousands) in companies with Income Tax by states:"),
+                         plotOutput("barchart1", height = 500),
+                         hr(),
+                         h3("Employees (thousands) in companies without Income Tax by states:"),
+                         plotOutput("barchart2", height = 500)
                          )
               )),
       tabItem(tabName = "map",
               tabsetPanel(
                 tabPanel("Map",
+                         h3("Companies average income by state:"),
                          leafletOutput("map1"),
+                         hr(),
+                         h3("Companies average income tax paid by state:"),
                          leafletOutput("map2"))
               ))
     )

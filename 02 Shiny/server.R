@@ -234,8 +234,8 @@ shinyServer(function(input, output) {
         dataset="chriswongwr/s-17-dv-final-project", type="sql",
         query="SELECT *
         FROM US_Companies
-        INNER JOIN LargestIndustry ON US_Companies.abbreviation = LargestIndustry.abbreviation
-        INNER JOIN Region ON LargestIndustry.state = Region.State") %>%mutate(.,has_state_income_tax = ifelse(abbreviation %in% c("TX","FL","AL","WA","WY","NV","SD"),"No","Yes"))
+        JOIN LargestIndustry ON US_Companies.abbreviation = LargestIndustry.abbreviation
+        JOIN Region ON LargestIndustry.state = Region.State") %>%mutate(.,has_state_income_tax = ifelse(abbreviation %in% c("TX","FL","AL","WA","WY","NV","SD"),"No","Yes"))
       df_noTax = dplyr::filter(bardf,has_state_income_tax == "No") %>% select(employee,abbreviation)
       df_noTax = df_noTax %>% group_by(abbreviation) %>% summarise(avg_emp = mean(employee))
       df_noTax
@@ -248,13 +248,33 @@ shinyServer(function(input, output) {
                                                                           FixedHeader = TRUE))
                                                         })
   output$barchart1 <- renderPlot({
-    if(input$rb1 == "Y"){
-      ggplot(barchartdata(), aes(x = abbreviation,y=  avg_emp)) + geom_bar(stat = "identity",fill = "blue") + geom_hline(yintercept = mean(barchartdata()$avg_emp)) + geom_text(aes(12,mean(barchartdata()$avg_emp)+10, label = paste("Average: ", round(mean(barchartdata()$avg_emp),2)),vjust = -2, fontface = "bold"))
-      }else{
-      ggplot(barchartdata(), aes(x = abbreviation,y=  avg_emp)) + geom_bar(stat = "identity",fill = "blue") + geom_hline(yintercept = mean(barchartdata()$avg_emp)) + geom_text(aes(3,mean(barchartdata()$avg_emp)+1, label = paste("Average: ", round(mean(barchartdata()$avg_emp),2)),vjust = -2, fontface = "bold"))
-    }
+    bardf <- query(
+      data.world(propsfile = ".data.world"),
+      dataset="chriswongwr/s-17-dv-final-project", type="sql",
+      query="SELECT *
+      FROM US_Companies
+      INNER JOIN LargestIndustry ON US_Companies.abbreviation = LargestIndustry.abbreviation
+      INNER JOIN Region ON LargestIndustry.state = Region.State") %>% mutate(.,has_state_income_tax = ifelse(abbreviation %in% c("TX","FL","AL","WA","WY","NV","SD"),"No","Yes"))
+    df_Tax = dplyr::filter(bardf,has_state_income_tax == "Yes")%>% select(employee,abbreviation)
+    df_Tax = df_Tax %>%  group_by(abbreviation) %>% summarise(avg_emp = mean(employee))
+    
+      ggplot(df_Tax, aes(x = abbreviation,y=  avg_emp)) + geom_bar(stat = "identity",fill = "blue") + geom_hline(yintercept = mean(df_Tax$avg_emp)) + geom_text(aes(12,mean(df_Tax$avg_emp)+10, label = paste("Average: ", round(mean(df_Tax$avg_emp),2)),vjust = -2, fontface = "bold"))
   })
   
+  output$barchart2 <- renderPlot({
+    bardf <- query(
+      data.world(propsfile = ".data.world"),
+      dataset="chriswongwr/s-17-dv-final-project", type="sql",
+      query="SELECT *
+      FROM US_Companies
+      JOIN LargestIndustry ON US_Companies.abbreviation = LargestIndustry.abbreviation
+      JOIN Region ON LargestIndustry.state = Region.State") %>%mutate(.,has_state_income_tax = ifelse(abbreviation %in% c("TX","FL","AL","WA","WY","NV","SD"),"No","Yes"))
+    df_noTax = dplyr::filter(bardf,has_state_income_tax == "No") %>% select(employee,abbreviation)
+    df_noTax = df_noTax %>% group_by(abbreviation) %>% summarise(avg_emp = mean(employee))
+    
+    ggplot(df_noTax, aes(x = abbreviation,y=  avg_emp)) + geom_bar(stat = "identity",fill = "blue") + geom_hline(yintercept = mean(df_noTax$avg_emp)) + geom_text(aes(3,mean(df_noTax$avg_emp)+1, label = paste("Average: ", round(mean(df_noTax$avg_emp),2)),vjust = -2, fontface = "bold"))
+    
+  })
 # End Barchart tab-------------------------------------------------
   
 })
